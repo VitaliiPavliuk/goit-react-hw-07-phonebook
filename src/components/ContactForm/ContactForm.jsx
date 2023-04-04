@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { ContactFormSt, AddBtn } from './ContactForm.styled';
-import { addContact } from 'redux/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from 'nanoid';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/operations';
 
 export const ContactForm = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const [contactForm, setContactForm] = useState({
     name: '',
     number: '',
@@ -31,9 +30,8 @@ export const ContactForm = () => {
     }
 
     const contact = {
-      id: nanoid(),
       name: contactForm.name,
-      number: contactForm.number,
+      phone: contactForm.number,
     };
 
     dispatch(addContact(contact));
